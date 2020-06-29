@@ -1,4 +1,3 @@
-student_count = 11
 # All the students in an array
 students = [
   "Dr. Hannibal Lecter",
@@ -20,4 +19,4 @@ students.each do |name|
   puts name
 end
 # Print total
-puts "Overall, we have #{student_count} great students"
+puts "Overall, we have #{students.count} great students"
