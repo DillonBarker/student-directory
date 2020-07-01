@@ -7,14 +7,14 @@ def input_students
 
 # GETTING FIRST NAME
 
-  name = gets.chomp
+  name = STDIN.gets.chomp
 
   while !name.empty? do
 # ADDING THE HASH TO THE ARRAY
   @students << {name: name, cohort:  :november}
   puts "Now we have #{@students.count} students"
 # get another name from the user
-  name = gets.chomp
+  name = STDIN.gets.chomp
   end
 # return the array of students
   @students
@@ -39,7 +39,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -48,7 +48,7 @@ def print_menu
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
   puts "4. Load the list from students.csv"
-  puts "9. Exit" 
+  puts "9. Exit"
 end
 
 def show_students
@@ -86,12 +86,27 @@ def save_students
 end
 
 # LOADING THE STUDENTS FILE
-def load_students
+def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-      @students << {name: name, cohort: cohort.to_sym}
+    @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
+
+# TRY LOADING STUDENTS
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+      puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry #{filename} doesn't exist"
+    exit
+  end
+end
+
+try_load_students
 interactive_menu
