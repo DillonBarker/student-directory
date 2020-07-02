@@ -2,19 +2,21 @@
 
 # FINDING THE ERRORS CHALLENGE
 def input_students
-  puts "Please enter the names of the students"
+  puts "Please enter the names, then cohorts of the students"
   puts "To finish, just hit return twice"
 
 # GETTING FIRST NAME
 
   name = STDIN.gets.chomp
+  cohort = STDIN.gets.chomp
 
   while !name.empty? do
 # ADDING THE HASH TO THE ARRAY
-  @students << {name: name, cohort:  :november}
+  students_to_hash(name, cohort)
   puts "Now we have #{@students.count} students"
 # get another name from the user
   name = STDIN.gets.chomp
+  cohort = STDIN.gets.chomp
   end
 # return the array of students
   @students
@@ -90,10 +92,16 @@ def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    students_to_hash(name, cohort)
   end
   file.close
 end
+
+# METHOD FOR @STUDENTS into a hash
+def students_to_hash(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
+end
+
 
 # TRY LOADING STUDENTS
 def try_load_students
