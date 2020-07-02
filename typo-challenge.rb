@@ -5,7 +5,7 @@ def input_students
   puts "Please enter the names, then cohorts of the students"
   puts "To finish, just hit return twice"
 
-# GETTING FIRST NAME
+# GETTING FIRST NAME AND COHORT
 
   name = STDIN.gets.chomp
   cohort = STDIN.gets.chomp
@@ -23,7 +23,7 @@ def input_students
 end
 
 def print_header
-  puts "The students of my cohort at Makers Academy"
+  puts "The students of my cohort at Villains Academy"
   puts "-------------"
 end
 
@@ -105,11 +105,12 @@ end
 
 # TRY LOADING STUDENTS
 def try_load_students
-  filename = ARGV.first
+  filename = "students.csv"
   return if filename.nil?
   if File.exists?(filename)
     load_students(filename)
       puts "Loaded #{@students.count} from #{filename}"
+      show_students
   else
     puts "Sorry #{filename} doesn't exist"
     exit
